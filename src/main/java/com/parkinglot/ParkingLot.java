@@ -10,10 +10,12 @@ public class ParkingLot {
     public ParkingTicket park(Car car) {
         ParkingTicket parkingTicket = new ParkingTicket();
         parkingSlotPosition.put(parkingTicket, car);
+
         return parkingTicket;
     }
 
     public Car fetch(ParkingTicket parkingTicket) {
         return parkingSlotPosition.get(parkingTicket);
     }
+
 }
