@@ -2,6 +2,9 @@ package com.parkinglot;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ParkingLotTest {
@@ -78,5 +81,22 @@ public class ParkingLotTest {
 
         //then
         assertNull(reUsedParkingTicket);
+    }
+
+    @Test
+    void should_not_return_a_parking_ticket_given_a_car_and_parking_lot_but_no_space() {
+        //given
+        ParkingLot parkingLot = new ParkingLot();
+        Car car = new Car();
+        List<ParkingTicket> parkingTicket = new LinkedList<>();
+
+        //when
+        for (int i = 0; i <= 10 ; i++) {
+            parkingTicket.add(parkingLot.park(car));
+        }
+        ParkingTicket excessParkingTicket = parkingLot.park(car);
+
+        //then
+        assertNull(excessParkingTicket);
     }
 }
