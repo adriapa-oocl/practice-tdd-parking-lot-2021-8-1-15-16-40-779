@@ -1,4 +1,4 @@
 package com.parkinglot;
 
-public class Car {
+public class Car extends ParkingTicket {
 }
