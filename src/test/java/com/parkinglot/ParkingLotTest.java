@@ -28,10 +28,27 @@ public class ParkingLotTest {
         ParkingTicket parkingTicket = parkingLot.park(car);
 
         //when
-        Car ownerCar = parkingLot.fetch(parkingTicket);
+        Car actualCar = parkingLot.fetch(parkingTicket);
 
         //then
-        assertEquals(car, ownerCar);
+        assertEquals(car, actualCar);
     }
 
+    @Test
+    void should_return_the_right_car_when_fetch_twice_given_a_parking_lot_with_two_parked_cars_and_two_parking_tickets() {
+        //given
+        ParkingLot parkingLot = new ParkingLot();
+        Car jesseCar = new Car();
+        Car robertCar = new Car();
+        ParkingTicket jesseParkingTicket = parkingLot.park(jesseCar);
+        ParkingTicket robertParkingTicket = parkingLot.park(robertCar);
+
+        //when
+        Car actualCarJesse = parkingLot.fetch(jesseParkingTicket);
+        Car actualCarRobert = parkingLot.fetch(robertParkingTicket);
+
+        //then
+        assertEquals(jesseCar, actualCarJesse);
+        assertEquals(robertCar, actualCarRobert);
+    }
 }
