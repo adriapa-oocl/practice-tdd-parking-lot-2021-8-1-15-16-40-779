@@ -8,4 +8,8 @@ public class ParkingLot {
         this.car = car;
         return car;
     }
+
+    public Car fetch(ParkingTicket parkingTicket) {
+        return null;
+    }
 }
