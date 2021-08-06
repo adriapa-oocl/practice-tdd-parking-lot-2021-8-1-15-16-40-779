@@ -8,10 +8,14 @@ public class ParkingLot {
     private Map<ParkingTicket, Car> parkingSlotPosition = new HashMap<>();
 
     public ParkingTicket park(Car car) {
-        ParkingTicket parkingTicket = new ParkingTicket();
-        parkingSlotPosition.put(parkingTicket, car);
-
-        return parkingTicket;
+        if(parkingSlotPosition.size() > 10){
+            return null;
+        }
+        else{
+            ParkingTicket parkingTicket = new ParkingTicket();
+            parkingSlotPosition.put(parkingTicket, car);
+            return parkingTicket;
+        }
     }
 
     public Car fetch(ParkingTicket parkingTicket) {

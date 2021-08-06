@@ -24,7 +24,7 @@
     When customer do fetch the car
     Then return nothing
 
-[]case 6
+[X]case 6
     Given a car, and a parking lot but NO space
     When customer do park the car
     Then do NOT return a parking ticket
