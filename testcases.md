@@ -16,7 +16,7 @@
 
 [] case 4
     Given customer has a WRONG parking ticket
-    When customer do fetch the car
+    When fetch the car
     Then return nothing
 
 [] case 5

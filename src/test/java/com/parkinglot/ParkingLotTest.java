@@ -52,5 +52,23 @@ public class ParkingLotTest {
         assertEquals(robertCar, actualCarRobert);
     }
 
+//    Given customer has a WRONG parking ticket
+//    When customer do fetch the car
+//    Then return nothing
 
+
+    @Test
+    void should_return_nothing_when_fetch_given_a_parking_lot_and_a_parked_car_but_wrong_ticket() {
+        //given
+        ParkingLot parkingLot = new ParkingLot();
+        Car jesseCar = new Car();
+        Car robertCar = new Car();
+        ParkingTicket jesseParkingTicket = parkingLot.park(robertCar);
+
+        //when
+        Car actualCarJesse = parkingLot.fetch(jesseParkingTicket);
+
+        //then
+        assertEquals(jesseCar, actualCarJesse);
+    }
 }
