@@ -6,10 +6,10 @@ public class ParkingLot {
 
     public ParkingTicket park(Car car) {
         this.car = car;
-        return car;
+        return new ParkingTicket();
     }
 
     public Car fetch(ParkingTicket parkingTicket) {
-        return null;
+        return car;
     }
 }
