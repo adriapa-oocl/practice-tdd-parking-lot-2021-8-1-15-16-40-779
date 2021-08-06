@@ -66,4 +66,17 @@ public class ParkingLotTest {
 
     }
 
+    @Test
+    void should_return_nothing_when_fetch_given_a_parking_lot_and_a_parked_car_but_ticket_already_used() {
+        //given
+        ParkingLot parkingLot = new ParkingLot();
+        Car car = new Car();
+        ParkingTicket parkingTicket = parkingLot.park(car);
+
+        //when
+        Car reUsedParkingTicket = parkingLot.fetch(parkingTicket);
+
+        //then
+        assertNull(reUsedParkingTicket);
+    }
 }

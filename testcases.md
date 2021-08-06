@@ -14,7 +14,7 @@
     When fetch the car twice
     Then return the right car with each ticket
 
-[] case 4
+[X] case 4
     Given customer has a WRONG parking ticket
     When fetch the car
     Then return nothing
