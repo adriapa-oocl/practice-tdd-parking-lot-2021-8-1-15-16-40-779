@@ -19,7 +19,7 @@
     When fetch the car
     Then return nothing
 
-[] case 5
+[X] case 5
     Given customer has parking ticket but already USED
     When customer do fetch the car
     Then return nothing

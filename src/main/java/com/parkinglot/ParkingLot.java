@@ -15,6 +15,9 @@ public class ParkingLot {
     }
 
     public Car fetch(ParkingTicket parkingTicket) {
+        if(parkingSlotPosition.get(parkingTicket) != null){
+            parkingSlotPosition.remove(parkingTicket);
+        }
         return parkingSlotPosition.get(parkingTicket);
     }
 
