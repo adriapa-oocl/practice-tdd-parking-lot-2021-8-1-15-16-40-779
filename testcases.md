@@ -65,25 +65,45 @@
 [X]case 4
     Given a parking lot, a standard parking boy, and a wrong parking ticket
     When fetch the car
-    Then return nothing with error message "Unrecognized parking ticket"
+    Then return nothing with error message "Unrecognized parking ticket."
 
 [X]case 5
     Given a parking lot, a standard parking boy, and a used parking ticket
     When fetch the car
-    Then return nothing with error message "Unrecognized parking ticket"
+    Then return nothing with error message "Unrecognized parking ticket."
 
 [X]case 6
     Given a parking lot without any position a standard parking boy, and a car
     When park the car
-    Then return nothing with error message "Unrecognized parking ticket"
+    Then return nothing with error message "No available position."
 
 #story 4
+[]case 1
+    Given a standard parking boy, two parking lots and both available, and a car
+    When park the car
+    Then return ticket and park car to the first parking lot
 
+[]case 2
+    Given a standard parking boy, two parking lots and first is full and second is available, and a car
+    When park the car
+    Then return ticket and park car to the second parking lot
 
+[]case 3
+    Given a standard parking boy, two parking lots, both with parked car and parking ticket
+    When fetch the car twice
+    Then return right car with each ticket
 
+[]case 4
+    Given a standard parking boy, two parking lots, unrecognized ticket
+    When fetch the car
+    Then return nothing with error message "Unrecognized parking ticket."
 
+[]case 5
+    Given a standard parking boy, two parking lots, used ticket
+    When fetch the car
+    Then return nothing with error message "Unrecognized parking ticket."
 
-
-
-
-
+[]case 6
+    Given a standard parking boy, two parking lots, no available parking slot for both
+    When park the car
+    Then return nothing with error message "No available position."
