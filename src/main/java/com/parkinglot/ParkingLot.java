@@ -6,6 +6,11 @@ import java.util.Map;
 public class ParkingLot {
 
     private static int PARKING_LOT_CAPACITY = 10;
+
+    public Map<ParkingTicket, Car> getParkingSlotPosition() {
+        return parkingSlotPosition;
+    }
+
     private Map<ParkingTicket, Car> parkingSlotPosition = new HashMap<>();
 
     public ParkingLot(int capacity){
@@ -38,8 +43,11 @@ public class ParkingLot {
         return !parkingSlotPosition.containsKey(parkingTicket);
     }
 
-    private boolean isFullCapacity(){
+    public boolean isFullCapacity(){
         return PARKING_LOT_CAPACITY == parkingSlotPosition.size();
     }
 
+    public boolean isAvailable(){
+        return parkingSlotPosition.size() <= PARKING_LOT_CAPACITY;
+    }
 }

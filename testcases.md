@@ -78,7 +78,7 @@
     Then return nothing with error message "No available position."
 
 #story 4
-[]case 1
+[X]case 1
     Given a standard parking boy, two parking lots and both available, and a car
     When park the car
     Then return ticket and park car to the first parking lot

@@ -1,18 +1,39 @@
 package com.parkinglot;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class ParkingBoy{
 
-    ParkingLot parkingLot;
+    private List<ParkingLot> multipleParkingLot = new ArrayList<>();
+
+    public ParkingBoy(List<ParkingLot> parkingLot) {
+        this.multipleParkingLot = parkingLot;
+    }
 
     public ParkingBoy(ParkingLot parkingLot) {
-        this.parkingLot = parkingLot;
+        this.multipleParkingLot.add(parkingLot);
+    }
+
+    public List<ParkingLot> getMultipleParkingLot() {
+        return multipleParkingLot;
     }
 
     public ParkingTicket park(Car car) {
-        return parkingLot.park(car);
+        return getAvailableParkingLot().park(car);
+    }
+
+    private ParkingLot getAvailableParkingLot(){
+        return multipleParkingLot
+                .stream()
+                .filter(ParkingLot::isAvailable)
+                .findFirst()
+                .orElseThrow(ExcessParkingLotCapacity::new);
     }
 
     public Car fetch(ParkingTicket parkingTicket) {
-        return parkingLot.fetch(parkingTicket);
+//        return multipleParkingLot.fetch(parkingTicket);
+        return null;
     }
 }

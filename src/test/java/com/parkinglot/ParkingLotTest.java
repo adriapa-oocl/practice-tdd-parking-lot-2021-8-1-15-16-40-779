@@ -2,6 +2,7 @@ package com.parkinglot;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -239,5 +240,19 @@ public class ParkingLotTest {
 
         //then
         assertEquals("No Available Position.", exception.getMessage());
+    }
+
+    @Test
+    void should_return_ticket_and_park_car_to_first_parking_lot_when_park_given_a_standard_parking_boy_with_two_parking_lots_and_both_available_and_a_car() {
+        //given
+        Car car = new Car();
+        ParkingBoy parkingBoy = new ParkingBoy(Arrays.asList(new ParkingLot(), new ParkingLot()));
+
+        //when
+        ParkingTicket parkingTicket = parkingBoy.park(car);
+
+        //then
+        assertNotNull(parkingTicket);
+        assertTrue(parkingBoy.getMultipleParkingLot().get(0).getParkingSlotPosition().containsKey(parkingTicket));
     }
 }
