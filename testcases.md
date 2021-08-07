@@ -72,7 +72,7 @@
     When fetch the car
     Then return nothing with error message "Unrecognized parking ticket"
 
-[]case 6
+[X]case 6
     Given a parking lot without any position a standard parking boy, and a car
     When park the car
     Then return nothing with error message "Unrecognized parking ticket"

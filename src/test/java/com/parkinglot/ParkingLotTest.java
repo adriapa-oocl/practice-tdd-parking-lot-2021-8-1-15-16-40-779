@@ -223,4 +223,25 @@ public class ParkingLotTest {
         assertEquals("Unrecognized parking ticket.", exception.getMessage());
     }
 
+//    Given a parking lot without any position a standard parking boy, and a car
+//    When park the car
+//    Then return nothing with error message "Unrecognized parking ticket"
+
+    @Test
+    void should_return_error_message_when_fetch_given_a_parking_lot_a_parking_boy_but_no_parking_slot_or_car() {
+        //given
+        ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
+        Car car = new Car();
+        List<ParkingTicket> parkingTicket = new LinkedList<>();
+
+        for (int i = 0; i < 10 ; i++) {
+            parkingTicket.add(parkingBoy.park(car));
+        }
+
+        //when
+        Exception exception = assertThrows(ExcessParkingLotCapacity.class, () -> parkingBoy.park(car));
+
+        //then
+        assertEquals("No Available Position.", exception.getMessage());
+    }
 }
