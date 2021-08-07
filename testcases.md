@@ -62,12 +62,12 @@
     When fetch the car
     Then return the right car with each ticket
 
-[]case 4
+[X]case 4
     Given a parking lot, a standard parking boy, and a wrong parking ticket
     When fetch the car
     Then return nothing with error message "Unrecognized parking ticket"
 
-[]case 5
+[X]case 5
     Given a parking lot, a standard parking boy, and a used parking ticket
     When fetch the car
     Then return nothing with error message "Unrecognized parking ticket"
