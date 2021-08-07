@@ -54,4 +54,8 @@ public class ParkingLot {
     public boolean isRelated(ParkingTicket parkingTicket) {
         return parkingSlotPosition.containsKey(parkingTicket);
     }
+
+    public int getParkingSlotCount(){
+        return parkingSlotPosition.size();
+    }
 }
