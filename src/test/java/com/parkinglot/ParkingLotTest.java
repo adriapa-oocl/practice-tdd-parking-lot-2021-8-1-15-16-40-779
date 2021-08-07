@@ -253,6 +253,41 @@ public class ParkingLotTest {
 
         //then
         assertNotNull(parkingTicket);
-        assertTrue(parkingBoy.getMultipleParkingLot().get(0).getParkingSlotPosition().containsKey(parkingTicket));
+        assertTrue(parkingBoy.getParkingLots().get(0).getParkingSlotPosition().containsKey(parkingTicket));
+    }
+
+    @Test
+    void should_return_ticket_and_park_car_to_second_parking_lot_when_park_given_a_standard_parking_boy_first_parking_lot_is_full_and_a_car() {
+        //given
+        Car car = new Car();
+        ParkingBoy parkingBoy = new ParkingBoy(Arrays.asList(new ParkingLot(), new ParkingLot()));
+        List<ParkingTicket> parkingTicket = new LinkedList<>();
+
+        for (int i = 0; i < 10 ; i++) {
+            parkingTicket.add(parkingBoy.park(car));
+        }
+
+        //when
+        ParkingTicket secondParkingLotTicket = parkingBoy.park(car);
+
+        //then
+        assertTrue(parkingBoy.getParkingLots().get(1).getParkingSlotPosition().containsKey(secondParkingLotTicket));
+    }
+
+    @Test
+    void should_return_right_car_with_each_ticket_when_fetch_given_standard_parking_boy_parking_lots_parked_cars_and_parking_tickets() {
+        Car jesseCar = new Car();
+        Car robertCar = new Car();
+        ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
+        ParkingTicket jesseParkingTicket = parkingBoy.park(jesseCar);
+        ParkingTicket robertParkingTicket = parkingBoy.park(robertCar);
+
+        //when
+        Car actualCarJesse = parkingBoy.fetch(jesseParkingTicket);
+        Car actualCarRobert = parkingBoy.fetch(robertParkingTicket);
+
+        //then
+        assertEquals(jesseCar, actualCarJesse);
+        assertEquals(robertCar, actualCarRobert);
     }
 }

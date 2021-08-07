@@ -2,22 +2,21 @@ package com.parkinglot;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ParkingBoy{
 
-    private List<ParkingLot> multipleParkingLot = new ArrayList<>();
+    private List<ParkingLot> parkingLots = new ArrayList<>();
 
     public ParkingBoy(List<ParkingLot> parkingLot) {
-        this.multipleParkingLot = parkingLot;
+        this.parkingLots = parkingLot;
     }
 
     public ParkingBoy(ParkingLot parkingLot) {
-        this.multipleParkingLot.add(parkingLot);
+        this.parkingLots.add(parkingLot);
     }
 
-    public List<ParkingLot> getMultipleParkingLot() {
-        return multipleParkingLot;
+    public List<ParkingLot> getParkingLots() {
+        return parkingLots;
     }
 
     public ParkingTicket park(Car car) {
@@ -25,15 +24,23 @@ public class ParkingBoy{
     }
 
     private ParkingLot getAvailableParkingLot(){
-        return multipleParkingLot
+        return parkingLots
                 .stream()
-                .filter(ParkingLot::isAvailable)
+                .filter(ParkingLot::isSlotAvailable)
                 .findFirst()
                 .orElseThrow(ExcessParkingLotCapacity::new);
     }
 
     public Car fetch(ParkingTicket parkingTicket) {
-//        return multipleParkingLot.fetch(parkingTicket);
-        return null;
+        return findParkingLot(parkingTicket).fetch(parkingTicket);
+    }
+
+    private ParkingLot findParkingLot(ParkingTicket parkingTicket) {
+        return parkingLots
+                .stream()
+                .filter(parkingLot -> parkingLot.isRelated(parkingTicket))
+                .findFirst()
+                .orElseThrow(UnrecognizedParkingTicketException::new)
+                ;
     }
 }

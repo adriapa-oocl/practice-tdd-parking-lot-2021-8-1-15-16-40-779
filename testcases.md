@@ -83,12 +83,12 @@
     When park the car
     Then return ticket and park car to the first parking lot
 
-[]case 2
+[X]case 2
     Given a standard parking boy, two parking lots and first is full and second is available, and a car
     When park the car
     Then return ticket and park car to the second parking lot
 
-[]case 3
+[X]case 3
     Given a standard parking boy, two parking lots, both with parked car and parking ticket
     When fetch the car twice
     Then return right car with each ticket

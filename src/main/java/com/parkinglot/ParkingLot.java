@@ -7,10 +7,6 @@ public class ParkingLot {
 
     private static int PARKING_LOT_CAPACITY = 10;
 
-    public Map<ParkingTicket, Car> getParkingSlotPosition() {
-        return parkingSlotPosition;
-    }
-
     private Map<ParkingTicket, Car> parkingSlotPosition = new HashMap<>();
 
     public ParkingLot(int capacity){
@@ -19,6 +15,10 @@ public class ParkingLot {
 
     public ParkingLot(){
 
+    }
+
+    public Map<ParkingTicket, Car> getParkingSlotPosition() {
+        return parkingSlotPosition;
     }
 
     public ParkingTicket park(Car car){
@@ -47,7 +47,11 @@ public class ParkingLot {
         return PARKING_LOT_CAPACITY == parkingSlotPosition.size();
     }
 
-    public boolean isAvailable(){
-        return parkingSlotPosition.size() <= PARKING_LOT_CAPACITY;
+    public boolean isSlotAvailable(){
+        return parkingSlotPosition.size() < PARKING_LOT_CAPACITY;
+    }
+
+    public boolean isRelated(ParkingTicket parkingTicket) {
+        return parkingSlotPosition.containsKey(parkingTicket);
     }
 }
