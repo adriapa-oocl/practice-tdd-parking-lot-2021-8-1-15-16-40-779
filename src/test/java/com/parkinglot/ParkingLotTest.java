@@ -57,8 +57,7 @@ public class ParkingLotTest {
     @Test
     void should_return_nothing_when_fetch_given_a_parking_lot_and_a_parked_car_but_wrong_ticket() {
         //given
-        ParkingLot parkingLot = new ParkingLot();
-        Car car = new Car();
+        ParkingLot parkingLot = new ParkingLot(10);
         ParkingTicket dummyParkingTicket = new ParkingTicket();
 
         //when
@@ -73,14 +72,14 @@ public class ParkingLotTest {
     void should_return_nothing_when_fetch_given_a_parking_lot_and_a_parked_car_but_ticket_already_used() {
         //given
         ParkingLot parkingLot = new ParkingLot();
-        Car car = new Car();
-        ParkingTicket parkingTicket = parkingLot.park(car);
+        ParkingTicket parkingTicket = parkingLot.park(new Car());
+        parkingLot.fetch(parkingTicket);
 
         //when
-        Car reUsedParkingTicket = parkingLot.fetch(parkingTicket);
+        Car actualCar = parkingLot.fetch(parkingTicket);
 
         //then
-        assertNull(reUsedParkingTicket);
+        assertNull(actualCar);
     }
 
     @Test
@@ -90,10 +89,11 @@ public class ParkingLotTest {
         Car car = new Car();
         List<ParkingTicket> parkingTicket = new LinkedList<>();
 
-        //when
-        for (int i = 0; i <= 10 ; i++) {
+        for (int i = 0; i < 10 ; i++) {
             parkingTicket.add(parkingLot.park(car));
         }
+
+        //when
         ParkingTicket excessParkingTicket = parkingLot.park(car);
 
         //then

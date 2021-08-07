@@ -1,12 +1,12 @@
 #story 1
 [X] case 1
     Given a parking lot, and a car
-    When customer do park the car
+    When park the car
     Then return a parking ticket
 
 [X] case 2
     Given customer has parking ticket
-    When customer do fetch the car
+    When fetch the car
     Then return car
 
 [X] case 3
@@ -21,13 +21,32 @@
 
 [X] case 5
     Given customer has parking ticket but already USED
-    When customer do fetch the car
+    When fetch the car
     Then return nothing
 
 [X]case 6
     Given a car, and a parking lot but NO space
-    When customer do park the car
+    When park the car
     Then do NOT return a parking ticket
+
+#story 2
+[]case 1
+    Given parking lot, and an unrecognized ticket
+    When fetch the car
+    Then display error message "Unrecognized parking ticket"
+
+[]case 2
+    Given parking lot, and a used ticket
+    When fetch the car
+    Then display error message "Unrecognized parking ticket"
+
+[]case 3
+    Given parking lot, without any position and a car
+    When park the car
+    Then display error message "No available position"
+    
+
+
 
 
 
