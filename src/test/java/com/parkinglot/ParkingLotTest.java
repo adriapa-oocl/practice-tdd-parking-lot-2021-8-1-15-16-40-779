@@ -61,10 +61,12 @@ public class ParkingLotTest {
         ParkingTicket dummyParkingTicket = new ParkingTicket();
 
         //when
-        Car actualCar = parkingLot.fetch(dummyParkingTicket);
+//        Car actualCar = parkingLot.fetch(dummyParkingTicket);
+        Exception exception = assertThrows(UnrecognizedParkingTicketException.class, () -> parkingLot.fetch(dummyParkingTicket));
 
         //then
-        assertNull(actualCar);
+//        assertNull(actualCar);
+        assertEquals("Unrecognized parking ticket.", exception.getMessage());
 
     }
 
@@ -98,5 +100,18 @@ public class ParkingLotTest {
 
         //then
         assertNull(excessParkingTicket);
+    }
+
+    @Test
+    void should_throw_exception_with_error_message_when_fetch_given_a_parking_lot_and_an_unrecognized_parking_ticket() {
+        //given
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingTicket unrecognizedParkingTicket = new ParkingTicket();
+
+        //when
+        Exception exception = assertThrows(UnrecognizedParkingTicketException.class, () -> parkingLot.fetch(unrecognizedParkingTicket));
+
+        //then
+        assertEquals("Unrecognized parking ticket.", exception.getMessage());
     }
 }
