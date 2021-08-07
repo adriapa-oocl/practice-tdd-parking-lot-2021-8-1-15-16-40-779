@@ -78,10 +78,12 @@ public class ParkingLotTest {
         parkingLot.fetch(parkingTicket);
 
         //when
-        Car actualCar = parkingLot.fetch(parkingTicket);
+//        Car actualCar = parkingLot.fetch(parkingTicket);
+        Exception exception = assertThrows(UnrecognizedParkingTicketException.class, () -> parkingLot.fetch(parkingTicket));
 
         //then
-        assertNull(actualCar);
+//        assertNull(actualCar);
+        assertEquals("Unrecognized parking ticket.", exception.getMessage());
     }
 
     @Test
