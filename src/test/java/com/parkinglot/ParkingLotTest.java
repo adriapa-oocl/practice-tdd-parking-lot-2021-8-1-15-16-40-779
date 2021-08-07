@@ -353,5 +353,35 @@ public class ParkingLotTest {
         assertNotNull(parkingTicket);
     }
 
+    @Test
+    void should_return_car_when_fetch_given_a_smart_parking_boy_and_parking_lot_and_a_car() {
+        //given
+        Car car = new Car();
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(new ParkingLot());
+        ParkingTicket parkingTicket = smartParkingBoy.park(car);
 
+        //when
+        Car actualCar = smartParkingBoy.fetch(parkingTicket);
+
+        //then
+        assertEquals(car, actualCar);
+    }
+
+    @Test
+    void should_return_car_when_fetch_given_a_smart_parking_boy_two_parked_cars_and_parking_lot() {
+        //given
+        Car jesseCar = new Car();
+        Car robertCar = new Car();
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(new ParkingLot());
+        ParkingTicket jesseParkingTicket = smartParkingBoy.park(jesseCar);
+        ParkingTicket robertParkingTicket = smartParkingBoy.park(robertCar);
+
+        //when
+        Car actualJesseCar = smartParkingBoy.fetch(jesseParkingTicket);
+        Car actualRobertCar = smartParkingBoy.fetch(robertParkingTicket);
+
+        //then
+        assertEquals(jesseCar, actualJesseCar);
+        assertEquals(robertCar, actualRobertCar);
+    }
 }
