@@ -538,4 +538,38 @@ public class ParkingLotTest {
         assertEquals("No Available Position.", exception.getMessage());
     }
 
+    @Test
+    void return_ticket_when_park_given_super_smart_parking_boy_2_parking_slot_with_10_car_but_not_higher_than_20() {
+        //given
+        SuperSmartParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(Arrays.asList(new ParkingLot(), new ParkingLot()));
+        Car car = new Car();
+        List<ParkingTicket> parkingTicket = new LinkedList<>();
+
+        //when
+        for (int i = 0; i < 20 ; i++) {
+            parkingTicket.add(superSmartParkingBoy.park(car));
+        }
+        Exception exception = assertThrows(ExcessParkingLotCapacity.class, () -> superSmartParkingBoy.park(car));
+
+        //then
+        assertEquals("No Available Position.", exception.getMessage());
+    }
+
+    @Test
+    void return_ticket_when_park_given_super_smart_parking_boy_has_multiple_parking_lot_and_many_available_slots() {
+        //given
+        SuperSmartParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(Arrays.asList(new ParkingLot(10), new ParkingLot(100)));
+        Car car = new Car();
+        List<ParkingTicket> parkingTicket = new LinkedList<>();
+
+        //when
+        for (int i = 0; i < 20 ; i++) {
+            parkingTicket.add(superSmartParkingBoy.park(car));
+        }
+
+        //then
+        assertEquals(2, superSmartParkingBoy.getParkingLots().get(0).getParkingSlotCount());
+        assertEquals(18, superSmartParkingBoy.getParkingLots().get(1).getParkingSlotCount());
+        assertTrue(superSmartParkingBoy.getParkingLots().get(0).getParkingSlotCount() < superSmartParkingBoy.getParkingLots().get(1).getParkingSlotCount());
+    }
 }
