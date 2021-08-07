@@ -17,8 +17,8 @@ public class ParkingLot {
     }
 
     public ParkingTicket park(Car car){
-        if (ifFullCapacity()){
-            return  null;
+        if (isFullCapacity()){
+            throw new ExcessParkingLotCapacity();
         }
         ParkingTicket parkingTicket = new ParkingTicket();
         parkingSlotPosition.put(parkingTicket, car);
@@ -38,7 +38,7 @@ public class ParkingLot {
         return !parkingSlotPosition.containsKey(parkingTicket);
     }
 
-    private boolean ifFullCapacity(){
+    private boolean isFullCapacity(){
         return FULL_CAPACITY == parkingSlotPosition.size();
     }
 
