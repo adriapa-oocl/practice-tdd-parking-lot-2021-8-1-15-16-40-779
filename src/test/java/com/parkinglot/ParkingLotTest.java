@@ -98,10 +98,12 @@ public class ParkingLotTest {
         }
 
         //when
-        ParkingTicket excessParkingTicket = parkingLot.park(car);
+        Exception exception = assertThrows(ExcessParkingLotCapacity.class, () -> parkingLot.park(car));
+//        ParkingTicket excessParkingTicket = parkingLot.park(car);
 
         //then
-        assertNull(excessParkingTicket);
+//        assertNull(excessParkingTicket);
+        assertEquals("No Available Position.", exception.getMessage());
     }
 
     @Test
@@ -129,5 +131,23 @@ public class ParkingLotTest {
 
         //then
         assertEquals("Unrecognized parking ticket.", exception.getMessage());
+    }
+
+    @Test
+    void should_throw_exception_with_error_message_when_park_given_a_parking_lot_but_no_capacity_nor_car() {
+        //given
+        ParkingLot parkingLot = new ParkingLot();
+        Car car = new Car();
+        List<ParkingTicket> parkingTicket = new LinkedList<>();
+
+        for (int i = 0; i < 10 ; i++) {
+            parkingTicket.add(parkingLot.park(car));
+        }
+
+        //when
+        Exception exception = assertThrows(ExcessParkingLotCapacity.class, () -> parkingLot.park(car));
+
+        //then
+        assertEquals("No Available Position.", exception.getMessage());
     }
 }
