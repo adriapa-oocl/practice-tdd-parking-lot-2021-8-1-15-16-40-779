@@ -47,13 +47,13 @@
 
 #story 3
 
-[]case 1 
+[X]case 1 
     Given a parking lot, a standard parking boy, and a car
     When park the car
     Then return a parking ticket
 
 []case 2
-    Given a parking lot with a parked card, a standard parkign boy, and a parking ticket
+    Given a parking lot with a parked card, a standard parking boy, and a parking ticket
     When fetch the car
     Then return the car
 
