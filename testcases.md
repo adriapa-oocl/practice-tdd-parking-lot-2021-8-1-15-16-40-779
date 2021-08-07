@@ -30,12 +30,12 @@
     Then do NOT return a parking ticket
 
 #story 2
-[]case 1
+[X]case 1
     Given parking lot, and an unrecognized ticket
     When fetch the car
     Then display error message "Unrecognized parking ticket"
 
-[]case 2
+[X]case 2
     Given parking lot, and a used ticket
     When fetch the car
     Then display error message "Unrecognized parking ticket"
