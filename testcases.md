@@ -57,7 +57,7 @@
     When fetch the car
     Then return the car
 
-[]case 3
+[X]case 3
     Given a parking lot with two parked cars, a standard parking boy, and two parking tickets
     When fetch the car
     Then return the right car with each ticket
