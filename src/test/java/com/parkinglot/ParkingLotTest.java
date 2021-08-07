@@ -339,4 +339,18 @@ public class ParkingLotTest {
         //then
         assertEquals("No Available Position.", exception.getMessage());
     }
+
+    @Test
+    void should_return_ticket_when_park_given_a_smart_parking_boy_and_parking_lot_available() {
+        //given
+        Car car = new Car();
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(new ParkingLot());
+
+        //when
+        ParkingTicket parkingTicket = smartParkingBoy.park(car);
+
+        //then
+        assertNotNull(parkingTicket);
+
+    }
 }
