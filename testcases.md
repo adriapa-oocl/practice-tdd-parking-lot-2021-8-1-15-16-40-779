@@ -93,17 +93,17 @@
     When fetch the car twice
     Then return right car with each ticket
 
-[]case 4
+[X]case 4
     Given a standard parking boy, two parking lots, unrecognized ticket
     When fetch the car
     Then return nothing with error message "Unrecognized parking ticket."
 
-[]case 5
+[X]case 5
     Given a standard parking boy, two parking lots, used ticket
     When fetch the car
     Then return nothing with error message "Unrecognized parking ticket."
 
-[]case 6
+[X]case 6
     Given a standard parking boy, two parking lots, no available parking slot for both
     When park the car
     Then return nothing with error message "No available position."

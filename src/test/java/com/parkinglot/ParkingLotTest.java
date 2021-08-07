@@ -278,7 +278,7 @@ public class ParkingLotTest {
     void should_return_right_car_with_each_ticket_when_fetch_given_standard_parking_boy_parking_lots_parked_cars_and_parking_tickets() {
         Car jesseCar = new Car();
         Car robertCar = new Car();
-        ParkingBoy parkingBoy = new ParkingBoy(new ParkingLot());
+        ParkingBoy parkingBoy = new ParkingBoy(Arrays.asList(new ParkingLot(), new ParkingLot()));
         ParkingTicket jesseParkingTicket = parkingBoy.park(jesseCar);
         ParkingTicket robertParkingTicket = parkingBoy.park(robertCar);
 
@@ -289,5 +289,54 @@ public class ParkingLotTest {
         //then
         assertEquals(jesseCar, actualCarJesse);
         assertEquals(robertCar, actualCarRobert);
+    }
+
+    @Test
+    void should_return_error_message_when_given_a_standard_parking_boy_two_parking_lots_unrecognized_ticket() {
+        //given
+        ParkingBoy parkingBoy = new ParkingBoy(Arrays.asList(new ParkingLot(), new ParkingLot()));
+        ParkingTicket unrecognizedParkingTicket = new ParkingTicket();
+
+        //when
+        Exception exception = assertThrows(UnrecognizedParkingTicketException.class, () -> parkingBoy.fetch(unrecognizedParkingTicket));
+
+        //then
+        assertEquals("Unrecognized parking ticket.", exception.getMessage());
+    }
+
+    @Test
+    void should_return_error_message_when_given_a_standard_parking_boy_two_parking_lots_used_ticket() {
+        //given
+        ParkingBoy parkingBoy = new ParkingBoy(Arrays.asList(new ParkingLot(), new ParkingLot()));
+        ParkingTicket parkingTicket = parkingBoy.park(new Car());
+        parkingBoy.fetch(parkingTicket);
+
+        //when
+        Exception exception = assertThrows(UnrecognizedParkingTicketException.class, () -> parkingBoy.fetch(parkingTicket));
+
+        //then
+        assertEquals("Unrecognized parking ticket.", exception.getMessage());
+    }
+
+    @Test
+    void return_error_message_when_park_given_a_standard_parking_boy_two_parking_lots_no_available_parking_slot() {
+        //given
+        ParkingBoy parkingBoy = new ParkingBoy(Arrays.asList(new ParkingLot(), new ParkingLot()));
+        Car car = new Car();
+        List<ParkingTicket> parkingLotOneTicket = new LinkedList<>();
+        List<ParkingTicket> parkingLotTwoTicket = new LinkedList<>();
+
+        for (int i = 0; i < 10 ; i++) {
+            parkingLotOneTicket.add(parkingBoy.park(car));
+        }
+        for (int i = 0; i < 10 ; i++) {
+            parkingLotTwoTicket.add(parkingBoy.park(car));
+        }
+
+        //when
+        Exception exception = assertThrows(ExcessParkingLotCapacity.class, () -> parkingBoy.park(car));
+
+        //then
+        assertEquals("No Available Position.", exception.getMessage());
     }
 }
