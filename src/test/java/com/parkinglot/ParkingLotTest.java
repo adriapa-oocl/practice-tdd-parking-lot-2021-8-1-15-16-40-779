@@ -343,14 +343,24 @@ public class ParkingLotTest {
     @Test
     void should_return_ticket_when_park_given_a_smart_parking_boy_and_parking_lot_available() {
         //given
+        ParkingBoy smartParkingBoy = new ParkingBoy(Arrays.asList(new ParkingLot(), new ParkingLot()));
+        List<ParkingTicket> parkingLotOneTicket = new LinkedList<>();
+        List<ParkingTicket> parkingLotTwoTicket = new LinkedList<>();
         Car car = new Car();
-        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(new ParkingLot());
 
         //when
+        for (int i = 0; i < 7 ; i++) {
+            parkingLotOneTicket.add(smartParkingBoy.park(car));
+        }
+        for (int i = 0; i <= 6 ; i++) {
+            parkingLotTwoTicket.add(smartParkingBoy.park(car));
+        }
+
         ParkingTicket parkingTicket = smartParkingBoy.park(car);
 
         //then
-        assertNotNull(parkingTicket);
+        assertEquals(5, smartParkingBoy.getParkingLots().get(1).getParkingSlotCount());
+        assertTrue(smartParkingBoy.getParkingLots().get(0).getParkingSlotCount() > smartParkingBoy.getParkingLots().get(1).getParkingSlotCount());
     }
 
     @Test
@@ -383,5 +393,54 @@ public class ParkingLotTest {
         //then
         assertEquals(jesseCar, actualJesseCar);
         assertEquals(robertCar, actualRobertCar);
+    }
+
+    @Test
+    void should_return_error_message_when_given_a_smart_parking_boy_two_parking_lots_unrecognized_ticket() {
+        //given
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(Arrays.asList(new ParkingLot(), new ParkingLot()));
+        ParkingTicket unrecognizedParkingTicket = new ParkingTicket();
+
+        //when
+        Exception exception = assertThrows(UnrecognizedParkingTicketException.class, () -> smartParkingBoy.fetch(unrecognizedParkingTicket));
+
+        //then
+        assertEquals("Unrecognized parking ticket.", exception.getMessage());
+    }
+
+    @Test
+    void should_return_error_message_when_given_a_smart_parking_boy_two_parking_lots_used_ticket() {
+        //given
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(Arrays.asList(new ParkingLot(), new ParkingLot()));
+        ParkingTicket parkingTicket = smartParkingBoy.park(new Car());
+        smartParkingBoy.fetch(parkingTicket);
+
+        //when
+        Exception exception = assertThrows(UnrecognizedParkingTicketException.class, () -> smartParkingBoy.fetch(parkingTicket));
+
+        //then
+        assertEquals("Unrecognized parking ticket.", exception.getMessage());
+    }
+
+    @Test
+    void return_error_message_when_park_given_a_smart_parking_boy_two_parking_lots_no_available_parking_slot() {
+        //given
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(Arrays.asList(new ParkingLot(), new ParkingLot()));
+        Car car = new Car();
+        List<ParkingTicket> parkingLotOneTicket = new LinkedList<>();
+        List<ParkingTicket> parkingLotTwoTicket = new LinkedList<>();
+
+        for (int i = 0; i < 10 ; i++) {
+            parkingLotOneTicket.add(smartParkingBoy.park(car));
+        }
+        for (int i = 0; i < 10 ; i++) {
+            parkingLotTwoTicket.add(smartParkingBoy.park(car));
+        }
+
+        //when
+        Exception exception = assertThrows(ExcessParkingLotCapacity.class, () -> smartParkingBoy.park(car));
+
+        //then
+        assertEquals("No Available Position.", exception.getMessage());
     }
 }
